@@ -1,13 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 struct Product {
     char name[100];
     float price;
     int quantite;
     int codeOfProduct;
 };
-void sortstructbynum(int n, struct Product prod[n]) {
+void timer(){
+   time_t rawtime;
+   struct tm *info;
+   time( &rawtime );
+   info = localtime( &rawtime );
+   return asctime(info);
+}
+void sortstructbynum(int n, struct Product prod[]) {
     int i, j;
     struct Product temp;
     for (i = 0; i < n - 1; i++) {
@@ -20,7 +28,7 @@ void sortstructbynum(int n, struct Product prod[n]) {
         }
     }
 }
-void sortstructbyaz(int n, struct Product prod[n]) {
+void sortstructbyaz(int n, struct Product prod[]) {
     int i, j;
     struct Product temp;
     for (i = 0; i < n - 1; i++) {
@@ -33,32 +41,30 @@ void sortstructbyaz(int n, struct Product prod[n]) {
         }
     }
 }
-void search(struct Product prod[5], int userChoice){
-    int numberOfProduct = 5;
-    for(int i = 0; i < numberOfProduct; i++){
+void search(struct Product prod[], int userChoice, int oldnumberOfProduct){
+    for(int i = 0; i < oldnumberOfProduct; i++){
         if(prod[i].codeOfProduct == userChoice){
             printf("%d==>  %s\t\t%0.2f\t\t%d\t\t%d\n", i + 1, prod[i].name, prod[i].price, prod[i].quantite, prod[i].codeOfProduct);
         }
     }
 }
-void buyProduct(struct Product prod[5]){
+void buyProduct(struct Product prod[]){
     int m, p;
     printf("WRITE THE MUMBER OF THE PRODUCT\n");
     scanf("%d", &p);
-    system("cls");
     printf("HOW MUCH %s YOU WANT TO BUY ", prod[p - 1].name);
     scanf("%d", &m);
     prod[p - 1].quantite -= m;
+    timer();
 }
-void notification(struct Product prod[5]){
-    int numberOfProduct;
-    for (int i = 0; i < numberOfProduct; i++){
+void notification(struct Product prod[], int oldnumberOfProduct){
+    for (int i = 0; i < oldnumberOfProduct; i++){
         if(prod[i].quantite <= 3){
-            printf("****YOU MUST ADD SOME%s****\n", prod[i].name);
+            printf("****YOU MUST ADD SOME %s****\n", prod[i].name);
         }
     }
 }
-void addquantite(struct Product prod[5]){
+void addquantite(struct Product prod[]){
     int i, q;
     printf("WRITE THE NUMBER OF DRUGS YOU WANT TO ADD\n");
     scanf("%d", &i);
@@ -70,7 +76,7 @@ int main() {
     int oldnumberOfProduct = 5;
     int start = oldnumberOfProduct;
     ///////////////////////////////////////////////
-    struct Product prod[oldnumberOfProduct];
+    struct Product prod[100];
     prod[0].codeOfProduct = 73440;
     strcpy(prod[0].name, "Probuphine");
     prod[0].price = 19.99;
@@ -105,6 +111,7 @@ int main() {
     printf("33==> ADD QUANTITE\t");
     printf("44==> SORT\t");
     printf("55==> SEARCH\t\t");
+    printf("66==> Analytics\t\t");
     int userChoice;
     scanf("%d", & userChoice);
     switch (userChoice) {
@@ -112,7 +119,7 @@ int main() {
     case 55:
         printf("WRITE THE CODE OF THE PRODUCT WHAT ARE YOU LOKING FOR\n");
         scanf("%d", &userChoice);
-        search(prod, userChoice);
+        search(prod, userChoice, oldnumberOfProduct);
     break;
     case 33:
         addquantite(prod);
@@ -120,7 +127,8 @@ int main() {
     break;
     case 11:
         buyProduct(prod);
-        notification(prod);
+        system("cls");
+        notification(prod, oldnumberOfProduct);
         goto test;
     break;
     case 44:
@@ -161,6 +169,9 @@ int main() {
         };
                 printf("\nnumberOfProduct %d\n", oldnumberOfProduct);
         goto test;
+        break;
+    case 66:
+        printf("Current local time and date: %s", timer());
         break;
     }
     return 0;
