@@ -113,7 +113,6 @@ int main() {
         printf("WRITE THE CODE OF THE PRODUCT WHAT ARE YOU LOKING FOR\n");
         scanf("%d", &userChoice);
         search(prod, userChoice);
-    //goto test;
     break;
     case 33:
         addquantite(prod);
@@ -145,20 +144,21 @@ int main() {
     case 22:
         system("cls");
         printf("HOW MANY PRODUCT YOU WANT TO ADD\n");
-        int yy;
-        scanf("%d", &yy);
-        oldnumberOfProduct += yy;
-        for (int i = start; i < oldnumberOfProduct; i++) {
+        int numberOfaddingproduct;
+        scanf("%d", &numberOfaddingproduct);
+        oldnumberOfProduct += numberOfaddingproduct;
+        for (start; start < oldnumberOfProduct; start++) {
+            printf("oldnumberOfProduct %d:\n", oldnumberOfProduct);
+            printf("start %d:\n", start);
             printf("Name of product :\n");
-            scanf("%s", prod[i].name);
+            scanf("%s", prod[start].name);
             printf("Price of product :\n");
-            scanf("%f", & prod[i].price);
+            scanf("%f", & prod[start].price);
             printf("Quantite of product :\n");
-            scanf("%d", & prod[i].quantite);
+            scanf("%d", & prod[start].quantite);
             printf("Code of product :\n");
-            scanf("%d", & prod[i].codeOfProduct);
+            scanf("%d", & prod[start].codeOfProduct);
         };
-        start += oldnumberOfProduct;
                 printf("\nnumberOfProduct %d\n", oldnumberOfProduct);
         goto test;
         break;
