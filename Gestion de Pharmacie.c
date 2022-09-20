@@ -236,18 +236,20 @@ int main()
     prod[4].price = 25.99;
     prod[4].quantite = 10;
     start:
-    printf("\n\n\t\t\t\t\t============== MENU ================\n");
-    printf("\t\t\t\t\t          1=>SHOW LIST              \n");
-    printf("\t\t\t\t\t          2=>BUY PRODUCT            \n");
-    printf("\t\t\t\t\t          3=>ADD NEW PRODUCT        \n");
-    printf("\t\t\t\t\t          4=>ADD QUANTITE           \n");
-    printf("\t\t\t\t\t          5=>SORT                   \n");
-    printf("\t\t\t\t\t          6=>SEARCH                 \n");
-    printf("\t\t\t\t\t          7=>DELETE                 \n");
-    printf("\t\t\t\t\t          8=>ANALYTICS              \n");
-    printf("\t\t\t\t\t          9=>MAX PRICE SOLD              \n");
-    printf("\t\t\t\t\t          10=>MIN PRICE SOLD              \n");
-    printf("\t\t\t\t\t====================================\n");
+    printf("\n\n\t\t\t\t\t* * * * * * * * M E N U * * * * * * * * \n");
+    printf("\t\t\t\t\t*                                     *\n");
+    printf("\t\t\t\t\t*          1=>SHOW LIST               *\n");
+    printf("\t\t\t\t\t*          2=>BUY PRODUCT             *\n");
+    printf("\t\t\t\t\t*          3=>ADD NEW PRODUCT         *\n");
+    printf("\t\t\t\t\t*          4=>ADD QUANTITE            *\n");
+    printf("\t\t\t\t\t*          5=>SORT                    *\n");
+    printf("\t\t\t\t\t*          6=>SEARCH                  *\n");
+    printf("\t\t\t\t\t*          7=>DELETE                  *\n");
+    printf("\t\t\t\t\t*          8=>ANALYTICS               *\n");
+    printf("\t\t\t\t\t*          9=>MAX PRICE SOLD          *\n");
+    printf("\t\t\t\t\t*          10=>MIN PRICE SOLD         *\n");
+    printf("\t\t\t\t\t*                                     *\n");
+    printf("\t\t\t\t\t* * * * * * * * * * * * * * * * * * * *\n");
     scanf("%d", &user_choice_menu);
     switch(user_choice_menu){
     case 1:
