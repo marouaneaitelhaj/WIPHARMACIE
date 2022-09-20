@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <conio.h>
 
-int m, p, numofachat;
+int m, p, number_time_buy;
 int i = 0;
-float bsr;
+float price_average;
 int user_choice_menu;
 int userChoice;
 int start = 5;
@@ -15,14 +16,14 @@ struct Product{
     int quantite;
     int codeOfProduct;
 };
-struct achat{
+struct cart{
     char name[100];
     char time[100];
     float priceTTC;
 };
 int lenth = 5;
 struct Product prod[50];
-struct achat chat[50];
+struct cart chat[50];
 void pressKey(){
     printf("Press any key to continue...\n");
     getch();
@@ -45,7 +46,7 @@ void sort_struct_by_price(int n){
 }
 void sort_secend_struct_by_price(int n){
     int i, j;
-    struct achat temp;
+    struct cart temp;
     for (i = 0; i < n - 1; i++)
     {
         for (j = 0; j < (n - 1 - i); j++)
@@ -111,26 +112,29 @@ void delete_product(){
         }
     }
 }
-void buy_Product(){
-    buy:
-    system("cls");
-            printf("\n\n\n===>  NAME\t\t\tPRICE\t\tQUANTITE\tCODE\n");
+void affichage(){
+    printf("\n\n\n===>  NAME\t\t\tPRICE\t\tQUANTITE\tCODE\n");
     for (int i = 0; i < lenth; i++)
     {
         printf("%d==>  %s\t\t%0.2f\t\t%d\t\t%d\n", i + 1, prod[i].name, prod[i].price, prod[i].quantite, prod[i].codeOfProduct);
     }
+}
+void buy_Product(){
+    buy:
+    system("cls");
+            affichage();
     printf("\nWRITE THE MUMBER OF THE PRODUCT IN THE LIST\n");
     scanf("%d", &p);
     printf("HOW MUCH %s YOU WANT TO BUY ", prod[p - 1].name);
     scanf("%d", &m);
     if(prod[p - 1].quantite > m){
     prod[p - 1].quantite -= m;
-    numofachat++;
+    number_time_buy++;
     time_t rawtime;
     struct tm * info;
     time(&rawtime);
     info = localtime(&rawtime);
-    for (i; i < numofachat; i++)
+    for (i; i < number_time_buy; i++)
     {
         strcpy(chat[i].name, prod[p - 1].name);
         chat[i].priceTTC = (float) prod[p - 1].price * m;
@@ -232,27 +236,23 @@ int main()
     prod[4].price = 25.99;
     prod[4].quantite = 10;
     start:
-    printf("\t\t\t================ MENU ================\n");
-    printf("\t\t\t            1=>SHOW LIST              \n");
-    printf("\t\t\t            2=>BUY PRODUCT            \n");
-    printf("\t\t\t            3=>ADD NEW PRODUCT        \n");
-    printf("\t\t\t            4=>ADD QUANTITE           \n");
-    printf("\t\t\t            5=>SORT                   \n");
-    printf("\t\t\t            6=>SEARCH                 \n");
-    printf("\t\t\t            7=>DELETE                 \n");
-    printf("\t\t\t            8=>Analytics              \n");
-    printf("\t\t\t            9=>MAX              \n");
-    printf("\t\t\t            10=>MIN              \n");
-    printf("\t\t\t======================================\n");
+    printf("\n\n\t\t\t\t\t============== MENU ================\n");
+    printf("\t\t\t\t\t          1=>SHOW LIST              \n");
+    printf("\t\t\t\t\t          2=>BUY PRODUCT            \n");
+    printf("\t\t\t\t\t          3=>ADD NEW PRODUCT        \n");
+    printf("\t\t\t\t\t          4=>ADD QUANTITE           \n");
+    printf("\t\t\t\t\t          5=>SORT                   \n");
+    printf("\t\t\t\t\t          6=>SEARCH                 \n");
+    printf("\t\t\t\t\t          7=>DELETE                 \n");
+    printf("\t\t\t\t\t          8=>ANALYTICS              \n");
+    printf("\t\t\t\t\t          9=>MAX PRICE SOLD              \n");
+    printf("\t\t\t\t\t          10=>MIN PRICE SOLD              \n");
+    printf("\t\t\t\t\t====================================\n");
     scanf("%d", &user_choice_menu);
     switch(user_choice_menu){
     case 1:
         system("cls");
-        printf("\n\n\n===>  NAME\t\t\tPRICE\t\tQUANTITE\tCODE\n");
-    for (int i = 0; i < lenth; i++)
-    {
-        printf("%d==>  %s\t\t%0.2f\t\t%d\t\t%d\n", i + 1, prod[i].name, prod[i].price, prod[i].quantite, prod[i].codeOfProduct);
-    }
+        affichage();
     pressKey();
     system("cls");
     goto start;
@@ -270,11 +270,7 @@ int main()
             break;
         case 4:
             system("cls");
-            printf("\n\n\n===>  NAME\t\t\tPRICE\t\tQUANTITE\tCODE\n");
-    for (int i = 0; i < lenth; i++)
-    {
-        printf("%d==>  %s\t\t%0.2f\t\t%d\t\t%d\n", i + 1, prod[i].name, prod[i].price, prod[i].quantite, prod[i].codeOfProduct);
-    }
+            affichage();
     printf("CODE OF PRODUCT");
     scanf("%d", &userChoice);
             addquantite(userChoice);
@@ -302,19 +298,15 @@ int main()
             break;
                 case 7:
                     system("cls");
-                    printf("\n\n\n===>  NAME\t\t\tPRICE\t\tQUANTITE\tCODE\n");
-    for (int i = 0; i < lenth; i++)
-    {
-        printf("%d==>  %s\t\t%0.2f\t\t%d\t\t%d\n", i + 1, prod[i].name, prod[i].price, prod[i].quantite, prod[i].codeOfProduct);
-    }
-
+                    affichage();
                     delete_product();
             system("cls");
             goto start;
             break;
                 case 6:
                     system("cls");
-                    printf("1=>BY QUANTITE\n2=>BY CODE");
+                    affichage();
+                    printf("\n1=>BY QUANTITE\n2=>BY CODE\n");
             scanf("%d", &userChoice);
             switch (userChoice)
             {
@@ -335,43 +327,58 @@ int main()
                     break;
                 case 8:
 
-                        for (i = 0; i < numofachat; i++)
+                        for (i = 0; i < number_time_buy; i++)
             {
                 printf("\n********************************\n");
                 printf("NAME OF PRODUCT : %s\n", chat[i].name);
-                printf("INCOM  : %0.2f $\n", chat[i].priceTTC *0.15 + chat[i].priceTTC);
+                printf("PRICE TTC  : %0.2f $\n", chat[i].priceTTC *0.15 + chat[i].priceTTC);
                 printf("TIME : %s", chat[i].time);
             }
 
-            for (i = 0; i < numofachat; i++)
+            for (i = 0; i < number_time_buy; i++)
             {
-                bsr += chat[i].priceTTC;
+                price_average += chat[i].priceTTC;
             }
 
-            printf("BSR : %0.2f $\n", (float) bsr / numofachat);
+            printf("PRICE AVERAGE : %0.2f $\n", (float) price_average / number_time_buy);
             printf("********************************\n");
             pressKey();
             system("cls");
             goto start;
              break;
                 case 9:
+                    if(number_time_buy > 0){
                     system("cls");
-                    printf("%d", lenth);
-                    sort_secend_struct_by_price(numofachat);
-                    printf("==>  %s\t\t%0.2f\t\t%d\t\t%d\n", chat[numofachat - 1].name, chat[numofachat - 1].priceTTC);
+                    sort_secend_struct_by_price(number_time_buy);
+                    printf("==>  %s\t\t%0.2f\t\t%d\t\t%d\n", chat[number_time_buy - 1].name, chat[number_time_buy - 1].priceTTC);
                     pressKey();
                     system("cls");
                     goto start;
+                    } else{
+                        printf("NOTHING FOUND\n");
+                        pressKey();
+                        system("cls");
+                    goto start;
+                    }
                     break;
                     case 10:
+                        if(number_time_buy > 0){
                     system("cls");
-                    printf("%d", lenth);
-                    sort_secend_struct_by_price(numofachat);
+                    sort_secend_struct_by_price(number_time_buy);
                     printf("==>  %s\t\t%0.2f\t\t%d\t\t%d\n", chat[0].name, chat[0].priceTTC);
                     pressKey();
                     system("cls");
                     goto start;
+                    } else{
+                        printf("NOTHING FOUND\n");
+                        pressKey();
+                        system("cls");
+                    goto start;
+                    }
                     break;
+                    default:
+                        system("cls");
+                    goto start;
     }
     return 0;
 }
