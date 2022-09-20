@@ -107,7 +107,7 @@ void buyProduct()
 	}
 }
 
-void notification(struct Product prod[], int oldnumberOfProduct)
+void notification()
 {
 	for (int i = 0; i < oldnumberOfProduct; i++)
 	{
@@ -192,7 +192,8 @@ int main()
 					searchbycode(prod, userChoice, oldnumberOfProduct);
 					break;
 			}
-
+            pressKey();
+            system("cls");
 			goto test;
 			break;
 		case 33:
@@ -203,7 +204,7 @@ int main()
 		case 11:
 			buyProduct();
 			system("cls");
-			notification(prod, oldnumberOfProduct);
+			notification();
 			goto test;
 			break;
 		case 44:
@@ -243,6 +244,7 @@ int main()
 				scanf("%d", &prod[start].codeOfProduct);
 			};
 			system("cls");
+			notification();
 			goto test;
 			break;
 		case 66:
