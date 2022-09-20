@@ -2,19 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+int m, p, numofachat;
+int i = 0;
+float bsr;
 struct Product {
     char name[100];
     float price;
     int quantite;
     int codeOfProduct;
 };
-void timer(){
-   time_t rawtime;
-   struct tm *info;
-   time( &rawtime );
-   info = localtime( &rawtime );
-   return asctime(info);
-}
+struct achat {
+    char name[100];
+    char time[100];
+    float priceTTC;
+};
+int oldnumberOfProduct = 5;
+struct Product prod[50];
+struct achat chat[50];
 void sortstructbynum(int n, struct Product prod[]) {
     int i, j;
     struct Product temp;
@@ -48,14 +52,23 @@ void search(struct Product prod[], int userChoice, int oldnumberOfProduct){
         }
     }
 }
-void buyProduct(struct Product prod[]){
-    int m, p;
+void deleteproduct();
+void buyProduct(){
     printf("WRITE THE MUMBER OF THE PRODUCT\n");
     scanf("%d", &p);
     printf("HOW MUCH %s YOU WANT TO BUY ", prod[p - 1].name);
     scanf("%d", &m);
     prod[p - 1].quantite -= m;
-    timer();
+    numofachat++;
+    time_t rawtime;
+    struct tm *info;
+    time( &rawtime );
+    info = localtime( &rawtime );
+    for(i; i < numofachat; i++){
+    strcpy(chat[i].name, prod[p - 1].name);
+    chat[i].priceTTC = (float) prod[p - 1].price * m;
+    strcpy(chat[i].time, asctime(info));
+    }
 }
 void notification(struct Product prod[], int oldnumberOfProduct){
     for (int i = 0; i < oldnumberOfProduct; i++){
@@ -73,10 +86,8 @@ void addquantite(struct Product prod[]){
     prod[i - 1].quantite += q;
 }
 int main() {
-    int oldnumberOfProduct = 5;
     int start = oldnumberOfProduct;
     ///////////////////////////////////////////////
-    struct Product prod[100];
     prod[0].codeOfProduct = 73440;
     strcpy(prod[0].name, "Probuphine");
     prod[0].price = 19.99;
@@ -102,16 +113,17 @@ int main() {
     prod[4].price = 25.99;
     prod[4].quantite = 10;
     test:
-        printf("===>  NAME\t\t\tPRICE\t\tQUANTITE\tCODE\n");
+        printf("\n\n\n||===>  NAME\t\t\tPRICE\t\tQUANTITE\tCODE\n");
     for (int i = 0; i < oldnumberOfProduct; i++) {
-        printf("%d==>  %s\t\t%0.2f\t\t%d\t\t%d\n", i + 1, prod[i].name, prod[i].price, prod[i].quantite, prod[i].codeOfProduct);
+        printf("||%d==>  %s\t\t%0.2f\t\t%d\t\t%d\n", i + 1, prod[i].name, prod[i].price, prod[i].quantite, prod[i].codeOfProduct);
     }
     printf("\n11==> BUY PRODUCT\t");
     printf("22==> ADD NEW PRODUCT\t");
     printf("33==> ADD QUANTITE\t");
     printf("44==> SORT\t");
     printf("55==> SEARCH\t\t");
-    printf("66==> Analytics\t\t");
+    printf("66==> DELETE\t\t");
+    printf("77==> Analytics\t\t");
     int userChoice;
     scanf("%d", & userChoice);
     switch (userChoice) {
@@ -120,13 +132,15 @@ int main() {
         printf("WRITE THE CODE OF THE PRODUCT WHAT ARE YOU LOKING FOR\n");
         scanf("%d", &userChoice);
         search(prod, userChoice, oldnumberOfProduct);
+        goto test;
     break;
     case 33:
         addquantite(prod);
+        system("cls");
         goto test;
     break;
     case 11:
-        buyProduct(prod);
+        buyProduct();
         system("cls");
         notification(prod, oldnumberOfProduct);
         goto test;
@@ -150,14 +164,12 @@ int main() {
         break;
         /////////////////////////////////////////////////////////////////////////////////
     case 22:
-        system("cls");
+
         printf("HOW MANY PRODUCT YOU WANT TO ADD\n");
         int numberOfaddingproduct;
         scanf("%d", &numberOfaddingproduct);
         oldnumberOfProduct += numberOfaddingproduct;
         for (start; start < oldnumberOfProduct; start++) {
-            printf("oldnumberOfProduct %d:\n", oldnumberOfProduct);
-            printf("start %d:\n", start);
             printf("Name of product :\n");
             scanf("%s", prod[start].name);
             printf("Price of product :\n");
@@ -167,12 +179,41 @@ int main() {
             printf("Code of product :\n");
             scanf("%d", & prod[start].codeOfProduct);
         };
-                printf("\nnumberOfProduct %d\n", oldnumberOfProduct);
+        system("cls");
         goto test;
         break;
     case 66:
-        printf("Current local time and date: %s", timer());
+        deleteproduct();
+        system("cls");
+        goto test;
+        break;
+    case 77:
+        for(i = 0; i < numofachat; i++){
+        printf("NAME OF PRODUCT : %s\n", chat[i].name);
+        printf("INCOM  : %0.2f\n", chat[i].priceTTC * 0.15);
+        printf("TIME : %s", chat[i].time);
+        }
+        for(i = 0; i < numofachat; i++){
+        bsr += chat[i].priceTTC;
+        }
+
+        printf("BSR : %f", (float) bsr / numofachat);
+        goto test;
         break;
     }
     return 0;
+}
+void deleteproduct(){
+    int userChoice;
+    int j;
+    printf("WRITE THE CODE OF THE PRODUCT WHAT ARE YOU delete az FOR\n");
+    scanf("%d", &userChoice);
+    for(int i = 0; i < oldnumberOfProduct; i++){
+        if(prod[i].codeOfProduct == userChoice){
+            for(j=i; j<oldnumberOfProduct-1; j++){
+                    prod[j]=prod[j+1];
+                }
+                oldnumberOfProduct--;
+        }
+    }
 }
