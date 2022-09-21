@@ -315,7 +315,7 @@ int main()
 	printf("\t\t\t\t\t\t*                                     *\n");
 	printf("\t\t\t\t\t\t*          7=>DELETE                  *\n");
 	printf("\t\t\t\t\t\t*                                     *\n");
-	printf("\t\t\t\t\t\t*          8=>ANALYTICS               *\n");
+	printf("\t\t\t\t\t\t*          8=>SALES HISTORY           *\n");
 	printf("\t\t\t\t\t\t*                                     *\n");
 	printf("\t\t\t\t\t\t*          9=>MAX PRICE SOLD          *\n");
 	printf("\t\t\t\t\t\t*                                     *\n");
