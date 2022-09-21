@@ -265,7 +265,7 @@ void min_price_sold()
 {
 	printf("THE MIN OF THE PRICES OF THE PRODUCTS SOLD ON THE CURRENT DAY : \n");
 	sort_secend_struct_by_price(sales_times);
-	printf("==>  %s\t\t%0.2f\t\t%d\t\t%d\n", chat[0].name, chat[0].priceTTC);
+	printf("==>  %s\t\t%0.2f $\n", chat[0].name, chat[0].priceTTC);
 }
 
 int main()
