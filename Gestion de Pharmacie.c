@@ -426,6 +426,7 @@ int main()
 					price_average += chat[i].priceTTC;
 				}
 
+				printf("TOTAL : %0.2f $\n", (float) price_average);
 				printf("PRICE AVERAGE : %0.2f $\n", (float) price_average / sales_times);
 				pressKey();
 				system("cls");
@@ -478,7 +479,6 @@ int main()
 			break;
 		case 11:
 			less_than_3_button();
-			printf("NOTHING FOUND\n");
 			pressKey();
 			system("cls");
 			goto start;
